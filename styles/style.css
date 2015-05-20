@@ -1,0 +1,29 @@
+body {
+    font-family: Raleway, sans-serif;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+footer {
+    position: fixed;
+    height: 34px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #CEE1ED;
+}
+
+footer .btn-link {
+    font-weight: bold;
+}
+
+footer .btn-link:active:focus, footer .btn-link:focus {
+    outline: none;
+}
+
+article {
+    padding: 2px;
+    min-height: 100vh;
+}

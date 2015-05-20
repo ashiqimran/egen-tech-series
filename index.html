@@ -16,6 +16,21 @@
             <p class="strong">Egen Tech Series</p>
             <p>Core JavaScript [ECMAScript 5.1]</p>
         </h1>
+
+        <h4>Helpful Links</h4>
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">Mozilla Developer Network</a></li>
+            <li><a href="http://kangax.github.io/compat-table/es5/" target="_blank">ECMAScript Compatibility Table</a></li>
+            <li><a href="http://caniuse.com" target="_blank">caniuse.com</a></li>
+        </ul>
+        <hr>
+        <h4>Tips</h4>
+        <ul>
+            <li>JavaScript is case-sensitive.</li>
+            <li>Terminate your statements with semi-colon (Best Practice).</li>
+            <li>Load scripts async (async attribute on <code>&lt;script></code> tag) or put at the bottom of <code>&lt;body></code></li>
+            <li>Start understanding ECMAScript 6.</li>
+        </ul>
     </article>
     <hr>
     <article>
@@ -28,16 +43,477 @@ console.log('logging');
 //prints entire structure including inheritance
 console.dir(new Object());
 
-//access currently highlighted element
-//from Elements tab
+//access currently highlighted element from Elements tab
 console.log($0);
+
+//stop using alert() for debugging
+alert('It is 2015. Stop using alert');
 </code></pre>
     </article>
     <article>
-        <h3 class="strong">Variables</h3>
+        <h3 class="strong">Declaring Variables</h3>
 <pre class="language-javascript"><code class="language-javascript">
-var obj;
+var somevar; //declares a variable in the immediate scope
 </code></pre>
+        <hr>
+        <h3 class="strong">Variable Types</h3>
+<pre class="language-javascript"><code class="language-javascript">
+console.log(typeof somevar);
+</code></pre>
+        <hr>
+        <h4><strong>undefined:</strong> Just declared, not initialized. No type</h4>
+<pre class="language-javascript"><code class="language-javascript">
+var somevar;
+var othervar = undefined; //programmatically
+</code></pre>
+        <hr>
+        <h4><strong>null:</strong> Variable exists, Value not known</h4>
+<pre class="language-javascript"><code class="language-javascript">
+var othervar = 10;
+    othervar = null;
+    console.log(typeof othervar);
+</code></pre>
+    <hr>
+    <h4>null !== undefined</h4>
+    </article>
+    <article>
+        <h3 class="strong">String</h3>
+<pre class="language-javascript"><code class="language-javascript">
+var firstName = new String('Egen');
+var lastName = 'Solutions';
+/*  **Useful Properties**
+    length, concat(), indexOf(), substring(),
+    toLowerCase(), toUpperCase(), trim(), charAt()
+*/
+</code></pre>
+        <hr>
+        <h4><strong>"double"</strong> or <strong>'single'</strong> quotes?</h4>
+<pre class="language-javascript"><code class="language-javascript">
+//doesn't matter (except in JSON)
+//be consistent
+var msg1 = 'This is "Egen Solutions"';
+var msg2 = "This is 'Egen Solutions'";
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Number</h3>
+<pre class="language-javascript"><code class="language-javascript">
+//Just one number type. No separate int, double, float, long etc.
+var age = new Number(28);
+var year = 2015;
+
+Number('123')     // 123
+Number('')        // 0
+Number('0x11')    // 17, hexadecimal
+Number('0b11')    // 3, binary
+Number('0o11')    // 9, octal
+Number('foo')     // NaN
+Number('100a')    // NaN
+
+isNaN(new Number('35445df45'))  // true
+
+//parseInt(string, radix), parseFloat(string)
+var num1 = parseInt('1234dsf3345'); // 1234
+var num2 = parseInt('1234.456');    // 1234
+var num3 = parseInt('100100', 2);   // 36
+var num4 = parseInt('1456311', 8);  // 416969
+var num5 = parseInt('1AE345', 16);  // 1762117
+var num6 = parseInt('asdfasdf');    // NaN
+var num7 = parseFloat('1234.57t6'); // 1234.57
+</code></pre>
+        <hr>
+        <h4><strong>Math</strong> object <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math" target="_blank">MDN Reference</a></h4>
+<pre class="language-javascript"><code class="language-javascript">
+/*
+    pow, abs, trigonometric, log, round, floor, ceil, random etc.
+*/
+
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Boolean</h3>
+<pre class="language-javascript"><code class="language-javascript">
+var isRunning = new Boolean();  //false
+var isDone = new Boolean(true); //true
+var isComplete = true;
+
+/* Following evaluates to false when put to a conditional statement
+    0
+    -0
+    null
+    ''
+    undefined
+    NaN
+    false
+*/
+
+var myVar;
+if(!myVar)
+{
+    console.log('myvar evaluates to false.');
+}
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Operators</h3>
+        <h4>Arithmetic</h4>
+<pre class="language-javascript"><code class="language-javascript">
++   -   *   /   %
+
+// Number + Number -> addition
+1 + 2 // 3
+
+// Boolean + Number -> addition
+true + 1 // 2
+
+// Boolean + Boolean -> addition
+false + false // 0
+
+// Number + String -> concatenation
+5 + "foo" // "5foo"
+
+// String + Boolean -> concatenation
+"foo" + false // "foofalse"
+
+// String + String -> concatenation
+"foo" + "bar" // "foobar"
+
+//No divide by zero error
+20/0;   //Infinity
+</code></pre>
+        <hr>
+        <h4>Logical</h4>
+<pre class="language-javascript"><code class="language-javascript">
+&& and      || or         ! not
+
+
+//setting default values to variables using ||
+//if param evaluates to false, rez = 'some default value';
+var rez = param || 'some default value';
+
+</code></pre>
+        <hr>
+        <h4>Conditional</h4>
+<pre class="language-javascript"><code class="language-javascript">
+//  (condition) ? value_if_true : value_if_false;
+    var age = 20;
+    var rez = (age>10) ? 'Young' : 'Old';
+</code></pre>
+        <hr>
+        <h4>Comparison</h4>
+<pre class="language-javascript"><code class="language-javascript">
+<      >      <=     >=      !=      ==
+
+// == and !== performs TYPE COERCION
+"dog" == "dog"          //true
+1 == true               //true
+null == undefined       //true
+0 == false              //true
+
+"dog" === "dog"         //true
+1 === true              //false
+null === undefined      //false
+0 === false             //false
+</code></pre>
+    </article>
+
+    <article>
+        <h3 class="strong">Control Structures</h3>
+<pre class="language-javascript"><code class="language-javascript">
+if(condition) {
+...
+}
+else {
+...
+}
+
+switch (expression) {
+    case value_expression1:
+            ...
+            break;
+    case value_expression2:
+            ...
+            break;
+    default:
+            ...
+}
+</code></pre>
+<pre class="language-javascript"><code class="language-javascript">
+for(var i=0; i<10; i++)
+{
+ ...
+}
+
+for(var val in obj)
+{
+ ...
+}
+
+while(condition)
+{
+...
+}
+</code></pre>
+    </article>
+
+
+    <article>
+        <h3 class="strong">Error Handling</h3>
+<pre class="language-javascript"><code class="language-javascript">
+try
+{
+    //Run some code here
+}
+catch(err)
+{
+    //Handle errors here
+}
+finally {
+
+}
+</code></pre>
+<pre class="language-javascript"><code class="language-javascript">
+throw exception; //exception can be any Object and it is passed to err in catch block
+
+throw {errorCode: 102, errorMsg: 'Something went wrong here'};
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Object</h3>
+<pre class="language-javascript"><code class="language-javascript">
+//collection of key-value pairs
+var obj = new Object();     //or
+var obj = {};
+
+//here obj is initialized using literal notation
+var obj = {
+    name: 'JavaScript',
+    details: {
+        age: 20,
+        city: 'Chicago, IL'
+    }
+};
+
+Object.keys(obj); //returns an array of keys of obj
+</code></pre>
+    <hr>
+    <h4>JSON: JavaScript Object Notation</h4>
+<pre class="language-javascript"><code class="language-javascript">
+/*  Keys must be strings.
+    All strings must be double-quoted.
+    Possible values: string, number, array, true, false, null, another JSON object
+*/
+{
+    "name": "JavaScript",
+    "details": {
+        "age": 20,
+        "city": "Chicago, IL"
+    }
+}
+</code></pre>
+<pre class="language-javascript"><code class="language-javascript">
+//parse JSON string to JavaScript object
+var obj = JSON.parse('{"name":"JavaScript","details":{"age":20,"city":"Chicago, IL"}}');
+
+//serialize JavaScript object to JSON string
+JSON.stringify(obj);
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Array</h3>
+<pre class="language-javascript"><code class="language-javascript">
+/*
+Well, JavaScript arrays are implemented using Object
+Dynamically expanded
+Zero based indexing
+has a 'length' property.
+*/
+var arr1 = new Array();     //or
+var arr2 = [];
+
+var arr3 = ['First', 'Second', 50]; //or
+var arr4 = new Array('First', 'Second', 50);
+
+Array.isArray([]); //true
+Array.isArray({}); //false
+Array.isArray(); //false
+</code></pre>
+        <hr>
+        <h4>Methods</h4>
+<pre class="language-javascript"><code class="language-javascript">
+concat(item[, itemN]) //returns result of concatenation.
+join(sep) //converts the array to a string delimited by the passed param
+pop() //removes and returns the last item
+push(item[, itemN]) //adds one or more items to the end
+reverse() //reverse the array
+shift()  //removes and returns the first item
+slice(start, end) //returns a sub-array
+sort([cmpfn]) //sorts items. Default is dictionary sorting
+splice(start, deleteCount[, itemN])
+unshift([item]) //prepends items to the start of the array
+indexOf(item [, start]) //returns the first occurrence index of item in the array
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Functions</h3>
+<pre class="language-javascript"><code class="language-javascript">
+/* functions are objects themselves (Have inbuilt properties)
+   No return type
+   No parameter type/count matching
+   Can be assigned to variables/properties
+*/
+
+function func1 () {
+}
+function func2 () {
+    return;
+}
+function func3 () {
+    return 100;
+}
+var obj = {
+    name: 'JavaScript',
+    display: function (txt){
+        console.log(txt);
+    }
+};
+
+typeof(func1); // 'function'
+</code></pre>
+<h4>Function Expression</h4>
+<pre class="language-javascript"><code class="language-javascript">
+funcExp1('executed'); //error, called before assignment
+var funcExp1 = function(txt){
+    console.log(txt);
+};
+funcExp1('success'); //works
+</code></pre>
+<pre class="language-javascript"><code class="language-javascript">
+function logger(a, b, c, d) {
+    console.log(a, b, c, d);
+}
+logger();           // undefined, undefined, undefined, undefined
+logger(1,2);        // 1, 2, undefined, undefined
+logger(1,2,3,4);    // 1,2,3,4
+logger(1,2,3,4,5,6);// 1,2,3,4 | ignores extra args
+</code></pre>
+        </article>
+    <article>
+        <h3 class="strong">Variable Scope</h3>
+        <h4>Local/Function Scope</h4>
+<pre class="language-javascript"><code class="language-javascript">
+//Variable declared within function body has function level scope
+//must use 'var' keyword to declare
+function func () {
+    var localVar = 'I am local';
+}
+
+//No block-level scope
+function func() {
+    if(true) {
+        var blockVar = 'JavaScript';
+    }
+    console.log(blockVar); //prints 'JavaScript', even outside block
+}
+</code></pre>
+        <hr>
+        <h4>Global Scope</h4>
+<pre class="language-javascript"><code class="language-javascript">
+//Variable declared outside a function has global scope
+//'window' object is the GLOBAL
+var globalVar = 'I am global';
+console.log(window); //globalVar is defined as a property on window
+console.log(window.globalVar); //'I am global'
+console.log("globalVar" in window); //true
+</code></pre>
+        <h5>If a variable is initialized without being declared using var keyword, it is automatically added to the global scope.</h5>
+        <h5>JavaScript scans variable in the nearest scope first.</h5>
+        <hr>
+        <h4>Closure Scope: Let's look at Closure later</h4>
+    </article>
+    <article>
+        <h3 class="strong">Variable Hoisting</h3>
+        <h4>All variable declarations are hoisted (lifted and declared) to the top of the scope</h4>
+<pre class="language-javascript"><code class="language-javascript">
+function showName () {
+    console.log(myName); // undefined, no error
+    var myName = "Bauer";
+}
+</code></pre>
+<hr>
+<pre class="language-javascript"><code class="language-javascript">
+//duplicate variable declaration works
+//due to hoisting
+var someVar = 'JavaScript';
+var someVar = 'AngularJS';
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Strict Mode</h3>
+        <h4>Throws exceptions instead of failing silently.</h4>
+<pre class="language-javascript"><code class="language-javascript">
+'use strict'; //entire script file is in 'strict' mode
+
+//or
+function func () {
+    'use strict'; //entire function is in 'strict' mode
+}
+    </code></pre>
+        <hr>
+<pre class="language-javascript"><code class="language-javascript">
+someVar = 'declaring a variable'; //Error, no var keyword
+
+var obj = { foo: true, foo: false }; //Error, duplicate prop in object literal
+
+//Error, duplicate parameter names
+function test(arg1, arg1) {
+}
+
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Closure</h3>
+        <h4>Nested Functions</h4>
+<pre class="language-javascript"><code class="language-javascript">
+/*
+access to its own scope. (local scope)
+access to the outer function’s variables + its parameters. (closure scope)
+access to the global variables. (global scope)
+*/
+function showName (firstName, lastName) {
+    var intro = "Your name is ";
+
+    function makeFullName () {
+        var ending = '!';
+        return intro + firstName + " " + lastName + ending;
+    }
+    return makeFullName();
+}
+
+showName("Michael", "Jackson"); // 'Your name is Michael Jackson!'
+</code></pre>
+        <hr>
+        <h4>Closure scope variables lives even if outer function has executed</h4>
+<pre class="language-javascript"><code class="language-javascript">
+function employee () {
+    var empId = 999;
+    return {
+        getId: function ()  {
+            return empId;
+        },
+        setId: function (newId)  {
+            empId = newId;
+        }
+    };
+}
+
+var obj = employee (); // At this point, the employee; the outer function has returned.
+obj.getId(); // 999
+obj.setId(100); // Changes the outer function's variable
+obj.getId(); // 100
+</code></pre>
+        <hr>
+        <h4>Closure scope variables (actually all variables) lives on Heap. Not on stack.</h4>
     </article>
 </section>
 <footer class="fixed">

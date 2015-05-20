@@ -2,6 +2,10 @@ body {
     font-family: Raleway, sans-serif;
 }
 
+::selection {
+    background-color: rgb(187, 244, 255);
+}
+
 .strong {
     font-weight: bold;
 }
@@ -24,6 +28,6 @@ footer .btn-link:active:focus, footer .btn-link:focus {
 }
 
 article {
-    padding: 2px;
+    padding: 2px 0 30px;
     min-height: 100vh;
 }

@@ -11,6 +11,7 @@
         {
             counter++;
             window.location.hash = counter;
+            localStorage.setItem('counter', counter);
         }
     }
 
@@ -19,12 +20,13 @@
         {
             counter--;
             window.location.hash = counter;
+            localStorage.setItem('counter', counter);
         }
     }
 
     function init(){
         var articles = document.getElementsByTagName('article'),
-            i;
+            i, oldCounter;
 
         for(i=0; i<articles.length; i++)
         {
@@ -32,6 +34,13 @@
         }
 
         max = i;
+
+        oldCounter = new Number(localStorage.getItem('counter'));
+
+        if(!isNaN(oldCounter))
+        {
+            counter = oldCounter-1;
+        }
         goNext();
     }
 

@@ -514,6 +514,238 @@ obj.getId(); // 100
 </code></pre>
         <hr>
         <h4>Closure scope variables (actually all variables) lives on Heap. Not on stack.</h4>
+        <hr>
+        <h4>Pay attention when using closure-ish or async code in a loop</h4>
+<pre class="language-javascript"><code class="language-javascript">
+//array of functions
+var funcs = [];
+
+// let's create 3 functions and store in funcs array
+for (var i = 0; i < 3; i++) {
+    funcs[i] = function() {
+        console.log("My value: " + i);
+    };
+}
+
+// and now let's run each one to see
+for (var j = 0; j < 3; j++) {
+    funcs[j](); //prints 3 three times
+}
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">IIFE</h3>
+        <h4><strong>Immediately Invoked Function Expression</strong> or <strong>Self Executing Anonymous Function</strong></h4>
+
+        <h4>Avoids global variables and memory leaks</h4>
+<pre class="language-javascript"><code class="language-javascript">
+var largeVar = {}; //assume it points to object with 10MB memory
+
+function tryingToAvoidMemoryLeak () {
+    var largeVar = {}; //still points to 10MB memory
+}
+
+//but this function is global as well
+</code></pre>
+        <hr>
+<pre class="language-javascript"><code class="language-javascript">
+(function () {
+
+})();
+</code></pre>
+        <hr>
+        <h4>Always wrap your code within IIFE</h4>
+<pre class="language-javascript"><code class="language-javascript">
+(function () {
+    'use strict';
+
+    ...
+    ...
+    ...
+})();
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">this</h3>
+        <h4><code>this</code> inside function points to the owner of the function</h4>
+<pre class="language-javascript"><code class="language-javascript">
+function globalFunc () {
+    console.log(this);
+}
+globalFunc(); //logs window
+
+var obj = {
+    name: 'JavaScript',
+    print: function () {
+        console.log(this);
+    }
+};
+obj.print(); //logs obj
+</code></pre>
+    <hr>
+        <h4><code>this</code> is resolved at run time</h4>
+<pre class="language-javascript"><code class="language-javascript">
+var bob = {
+    name: 'Bob',
+    print: globalFunc
+};
+
+bob.print(); // logs bob.
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">Function Calling</h3>
+<pre class="language-javascript"><code class="language-javascript">
+var name = 'Global Name';
+
+function func (first, second) {
+    console.log(first, second);
+    console.log(this.name);
+}
+
+var bob = {
+    name: 'Bob'
+};
+var alice = {
+    name: 'Alice'
+};
+
+func('Hi');
+
+//  apply(objRef, arrayOfValues);
+func.apply(bob, ['100', '200']);
+
+//  call(objRef, arg1, arg2, ..);
+func.call(alice, '100', '200');
+</code></pre>
+        <h4><code>apply</code> and <code>call</code> are used to change the <code>this</code> reference inside the function</h4>
+    </article>
+    <article>
+        <h3 class="strong">Prototype Inheritance</h3>
+<pre class="language-javascript"><code class="language-javascript">
+/*  JavaScript is dynamic, object-oriented language.
+*/
+var obj = new Object();
+var obj = {};
+
+console.dir(Object); // function Object() { [native code] }
+</code></pre>
+<pre class="language-javascript"><code class="language-javascript">
+function Base() {
+}
+
+var obj = new Base(); //instantiating new object of Base type
+console.log(typeof (obj)); //object, and not function
+console.log(obj instanceof Base); //true
+</code></pre>
+<pre class="language-javascript"><code class="language-javascript">
+function Base() {
+}
+
+Base.log = function () {
+    console.log('I am base');
+};
+
+Base.log(); //'I am base'
+
+var obj = new Base(); //instantiating new object of Base type
+obj.log(); //Error
+</code></pre>
+        <h4><code>prototype</code> object of function</h4>
+<pre class="language-javascript"><code class="language-javascript">
+function Base() {
+}
+
+Base.prototype.log = function () {
+    console.log('I am base');
+};
+
+var obj = new Base(); //instantiating new object of Base type
+obj.log(); //'I am base'
+</code></pre>
+        <h4>While instantiating an object using new keyword, the new instance inherits from Base.prototype
+            rather than directly from the Base object itself.</h4>
+        <hr>
+        <h4>Changing prototype of in-built objects</h4>
+<pre class="language-javascript"><code class="language-javascript">
+Object.prototype.myOwnProp = 'My own property';
+
+var obj = {
+    name: 'JavaScript',
+    age: 19,
+    city: 'Mountain View',
+    state: 'CA'
+};
+
+for (var key in obj)
+{
+    console.log(key + ' = ' + obj[key]);
+}
+
+//avoid iterating over updated prototype props
+for (var key in obj)
+{
+    if(obj.hasOwnProperty(key))
+    {
+        console.log(key + ' : ' + obj[key]);
+    }
+}
+</code></pre>
+        <hr>
+        <h4>Same issue with arrays</h4>
+<pre class="language-javascript"><code class="language-javascript">
+Array.prototype.myOwnProp = 'My own property';
+
+var arr = [100, 200, 300, 400];
+
+//best approach unless using some library helper like _, lodash or angular.forEach
+for (var index=0; index&lt;arr.length; index++)
+{
+    console.log(arr[index]);
+}
+</code></pre>
+    </article>
+    <article>
+        <h3 class="strong">this vs prototype</h3>
+<pre class="language-javascript"><code class="language-javascript">
+//this
+function Base1() {
+    this.name = 'Base';
+    this.log = function () {
+        console.log(this.name);
+    };
+}
+
+//obj11 and obj12 get their own name and log props
+var obj11 = new Base1();
+var obj12 = new Base1();
+</code></pre>
+<pre class="language-javascript"><code class="language-javascript">
+//prototype
+function Base2() {
+}
+Base2.prototype.name = 'Base';
+Base2.prototype.log = function () {
+    console.log(this.name);
+};
+
+//obj21 and obj22 access the exact same properites from their Base2 parent
+var obj21 = new Base2();
+var obj22 = new Base2();
+</code></pre>
+
+    </article>
+    <article>
+        <h3 class="strong">Async Behaviour</h3>
+<pre class="language-javascript"><code class="language-javascript">
+function func() {
+    console.log('EXECUTED');
+}
+
+console.log('START');
+setTimeout(func, 5000);
+console.log('END');
+</code></pre>
     </article>
 </section>
 <footer class="fixed">

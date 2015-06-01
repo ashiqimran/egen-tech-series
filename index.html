@@ -475,11 +475,6 @@ function test(arg1, arg1) {
         <h3 class="strong">Closure</h3>
         <h4>Nested Functions</h4>
 <pre class="language-javascript"><code class="language-javascript">
-/*
-access to its own scope. (local scope)
-access to the outer function’s variables + its parameters. (closure scope)
-access to the global variables. (global scope)
-*/
 function showName (firstName, lastName) {
     var intro = "Your name is ";
 
@@ -491,9 +486,15 @@ function showName (firstName, lastName) {
 }
 
 showName("Michael", "Jackson"); // 'Your name is Michael Jackson!'
+
+/*
+access to its own scope. (local scope)
+access to the outer function’s variables + its parameters. (closure scope)
+access to the global variables. (global scope)
+*/
 </code></pre>
         <hr>
-        <h4>Closure scope variables lives even if outer function has executed</h4>
+        <h4>Closure scope variables lives on even if outer function has executed</h4>
 <pre class="language-javascript"><code class="language-javascript">
 function employee () {
     var empId = 999;
@@ -746,6 +747,12 @@ console.log('START');
 setTimeout(func, 5000);
 console.log('END');
 </code></pre>
+        <hr>
+        <h3>Extra Stuff</h3>
+        <h4><a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ" target="_blank">What the heck is the event loop anyway?</a></h4>
+        <h4><a href="https://www.youtube.com/watch?v=zRZNb4GDOPI" target="_blank">JavaScript Scope Chains and Closures</a></h4>
+        <h4><a href="https://www.youtube.com/playlist?list=PLiLNWfIO8DE32QJUT7999J7yTVLOA7txj" target="_blank">My WEB_TECH Playlist</a></h4>
+
     </article>
 </section>
 <footer class="fixed">
